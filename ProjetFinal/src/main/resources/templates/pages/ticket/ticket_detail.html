@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Deconnexion"/>
+</form>
+<a th:if="${current.role == 'ROLE_ADMIN'}" th:href="'/admin'">retour accueil</a>
+<a th:if="${current.role == 'ROLE_USER'}" th:href="'/user'">retour accueil</a>
+<a th:if="${current.role == 'ROLE_USER'}" th:href="'/tickets/mytickets'">retour a mes tickets</a>
+<h1>Detail Ticket</h1>
+<span>ID : </span><span th:text="${ticket.ticketId}"></span><br>
+<span>Poster : </span><span th:text="${ticket.employe.username}"></span><br>
+<span> Date posted: </span><span
+        th:text="${ticket.dateposted}"></span><br>
+<span> Type: </span><span th:text="${ticket.ticketType}"></span><br>
+<span> Description: </span><span th:text="${ticket.ticketDescription}"></span><br>
+<a th:if="${current.role == 'ROLE_ADMIN'}" th:href="'/tickets/delete/' + ${ticket.ticketId}" onclick="return confirm('Are you sure you want to delete this ticket?');">Delete Ticket</a>
+<p th:if="${ticket.isResolved == 1}">Ticket Résolut!</p>
+<h2>Commentaires</h2>
+<table style="float: left">
+<tr th:each="comment : ${comments}">
+    <td th:text="${comment.employe.username}"></td>
+    <td th:text="${comment.date}"></td>
+    <td th:text="${comment.message}">message</td>
+</tr>
+
+</table>
+
+<form style="float:right" action="#" th:action="@{/tickets/commentpost/} + ${ticket.ticketId}"
+      th:object="${ticketupdate}" method="post">
+
+    <td>
+        <p>Poster votre message</p>
+        <input type="text" th:field="*{message}" name="Name"/>
+    </td>
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Enregistrer"
+                       name="Enregistrer"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>ticket résoluts</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Deconnexion"/>
+</form>
+<h1>Tickets résoluts</h1>
+<p>Nombre de résultats: <span th:text="${tickets.size()}"></span></p>
+<form th:action="@{executeSearch}" th:object="${search}" method="get">
+    <div class="input-group w-50">
+        <input type="text" th:field="*{query}" class="form-control" placeholder="details" required/>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+        </div>
+    </div>
+</form>
+<table style="border: 1px solid;">
+    <thead>
+    <th>ID</th>
+    <th>Poster</th>
+    <th>Ticket Type</th>
+    <th>Description</th>
+    <th>DatePosted</th>
+    <th>ACTION</th>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.ticketId}"></td>
+        <td th:text="${ticket.employe.username}">Original Poster</td>
+        <td th:text="${ticket.ticketType}">Ticket Type</td>
+        <td th:text="${ticket.ticketDescription}">Description</td>
+        <td th:text="${ticket.dateposted}">Date</td>
+        <td>
+            <a th:href="'/tickets/' + ${ticket.ticketId}">Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a th:if="${current.role == 'ROLE_ADMIN'}" th:href="'/admin'">retour accueil</a>
+<br>
+<a th:if="${current.role == 'ROLE_USER'}" th:href="'/user'">retour accueil</a>
+<br>
+<br>
+
+</body>
+</html>

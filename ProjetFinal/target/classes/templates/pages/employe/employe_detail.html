@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Deconnexion"/>
+</form>
+<h1>Detail Employe</h1>
+<span>ID : </span><span th:text="${employe.employe_id}"></span><br>
+<span>NOM : </span><span th:text="${employe.username}"></span><br>
+<span>EMAIL : </span><span
+        th:text="${employe.email}"></span><br>
+<span> ROLE: </span><span th:text="${employe.role}"></span><br>
+<br>
+<a th:href="'/employes/delete/' + ${employe.employe_id}" onclick="return confirm('Are you sure you want to delete this employe?');">Delete</a>
+<br>
+<br>
+<a th:href="'/employes'">retour liste employes</a>
+
+</body>
+</html>

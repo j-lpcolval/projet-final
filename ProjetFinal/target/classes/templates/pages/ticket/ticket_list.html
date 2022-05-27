@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>ticket actifs</title>
+</head>
+<body>
+<h1>Tickets actifs</h1>
+<p>Nombre de résultats: <span th:text="${tickets.size()}"></span></p>
+<table style="border: 1px solid;">
+    <thead>
+    <th>ID</th>
+    <th>Poster</th>
+    <th>Ticket Type</th>
+    <th>Description</th>
+    <th>DatePosted</th>
+    <th>ACTION</th>
+    </thead>
+    <tbody>
+    <tr th:each="ticket : ${tickets}">
+        <td>
+            <a th:href="'/tickets/' + ${ticket.ticketId}"
+               th:text="${ticket.ticketId}"></a>
+        </td>
+        <td th:text="${ticket.employe.username}">Original Poster</td>
+        <td th:text="${ticket.ticketType}">Ticket Type</td>
+        <td th:text="${ticket.ticketDescription}">Description</td>
+        <td th:text="${ticket.dateposted}">Date</td>
+        <td>
+            <a th:href="'/tickets/moveToArchive/' + ${ticket.ticketId}" onclick="return confirm('Are you sure you want to move this Ticket to the archives?');">Save</a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+<br>
+<a th:href="'/admin'">retour accueil</a>
+<br>
+<br>
+<br>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Deconnexion"/>
+</form>
+</body>
+</html>

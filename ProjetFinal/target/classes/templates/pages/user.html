@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Thymeleaf</title>
+</head>
+<body>
+
+<h1>
+    Hello user <span sec:authentication="name">NOT FOUND</span>
+</h1>
+<br>
+<a th:href="'/tickets/mytickets'">Mes tickets</a>
+<br>
+<br>
+<a th:href="'/tickets/archives'">Tickets Résoluts</a>
+<br>
+<br>
+<a th:href="'/employes/edit/'+ ${emp.employe_id}">Mon profil</a>
+<br>
+<br>
+<a th:href="'/tickets/postticket'">Soumettre un ticket</a>
+<br>
+<br>
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Deconnexion"/>
+</form>
+</body>
+</html>

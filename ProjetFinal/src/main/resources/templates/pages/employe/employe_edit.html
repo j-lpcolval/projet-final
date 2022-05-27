@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edition du client</title>
+</head>
+<body>
+<h1>Éditer l'employe</h1>
+<h2 th:if="${employe.employe_id != current.employe_id && current.role == 'ROLE_USER'}">Vous n'avez pas accès a cette page</h2>
+<a th:if="${employe.employe_id != current.employe_id && current.role == 'ROLE_USER'}" th:href="'/user'">Retour accueil</a>
+<form th:if="${employe.employe_id == current.employe_id && current.role == 'ROLE_USER'}" action="#" th:action="@{/employes/editemploye}"
+      th:object="${employe}" method="post">
+    <table>
+        <tr>
+            <td>
+                <label>Nom: </label>
+            </td>
+            <td>
+                <input type="text" hidden th:field="*{employe_id}"
+                       th:value="${employe.employe_id}"/>
+                <input type="text" th:field="*{username}"
+                       th:value="${employe.username}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{password}"
+                       th:value="${employe.password}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Email: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{email}"
+                       th:value="${employe.email}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Role: </label>
+            </td>
+            <td>
+                <input th:if="${current.role == 'ROLE_ADMIN'}" type="text" th:field="*{role}"
+                       th:value="${employe.role}"/>
+                <label th:if="${current.role == 'ROLE_USER'}" th:text="${current.role}"></label>
+                <input th:if="${current.role == 'ROLE_USER'}" hidden type="text" th:field="*{role}"
+                       th:value="${employe.role}"/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Enregistrer"
+                       name="Enregistrer"/>
+            </td>
+            <td>
+                <input type="reset" value="Annuler" name="reset"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<form th:if="${current.role == 'ROLE_ADMIN'}" action="#" th:action="@{/employes/editemploye}"
+      th:object="${employe}" method="post">
+    <table>
+        <tr>
+            <td>
+                <label>Nom: </label>
+            </td>
+            <td>
+                <input type="text" hidden th:field="*{employe_id}"
+                       th:value="${employe.employe_id}"/>
+                <input type="text" th:field="*{username}"
+                       th:value="${employe.username}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{password}"
+                       th:value="${employe.password}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Email: </label>
+            </td>
+            <td>
+                <input type="text" th:field="*{email}"
+                       th:value="${employe.email}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Role: </label>
+            </td>
+            <td>
+                <input th:if="${current.role == 'ROLE_ADMIN'}" type="text" th:field="*{role}"
+                       th:value="${employe.role}"/>
+                <label th:if="${current.role == 'ROLE_USER'}" th:text="${current.role}"></label>
+                <input th:if="${current.role == 'ROLE_USER'}" hidden type="text" th:field="*{role}"
+                       th:value="${employe.role}"/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <table>
+        <tr>
+            <td>
+                <input type="submit" value="Enregistrer"
+                       name="Enregistrer"/>
+            </td>
+            <td>
+                <input type="reset" value="Annuler" name="reset"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
